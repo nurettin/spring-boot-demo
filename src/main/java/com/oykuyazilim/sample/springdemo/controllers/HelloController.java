@@ -1,5 +1,7 @@
 package com.oykuyazilim.sample.springdemo.controllers;
 
+import com.oykuyazilim.sample.springdemo.services.HelloService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +15,11 @@ import java.util.HashMap;
 @RestController()
 @RequestMapping("/hello")
 public class HelloController {
+    @Autowired
+    HelloService helloService;
+
     @GetMapping(value = "/whatTimeIsIt")
-    public String getDateAndTime() {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        return dtf.format(now);
+    public String whatTimeIsIt() {
+        return helloService.getDateAndTime();
     }
 }
